@@ -29,14 +29,40 @@ function Invitation() {
   const [phase, setPhase] = useState<Phase>("envelope");
   const [muted, setMuted] = useState(true);
   const musicRef = useRef<HTMLAudioElement | null>(null);
+  const fadeRef = useRef<number | null>(null);
+
+  const fadeTo = (target: number, durationMs: number) => {
+    const el = musicRef.current;
+    if (!el) return;
+    if (fadeRef.current) window.clearInterval(fadeRef.current);
+    const start = el.volume;
+    const startTime = performance.now();
+    fadeRef.current = window.setInterval(() => {
+      const t = Math.min(1, (performance.now() - startTime) / durationMs);
+      el.volume = start + (target - start) * t;
+      if (t >= 1 && fadeRef.current) {
+        window.clearInterval(fadeRef.current);
+        fadeRef.current = null;
+      }
+    }, 60);
+  };
+
+  const beginMusic = () => {
+    const el = musicRef.current;
+    if (!el) return;
+    el.volume = 0;
+    el.play()
+      .then(() => {
+        setMuted(false);
+        // Slow, intimate creep — ~12s to reach target
+        fadeTo(TARGET_VOLUME, 12000);
+      })
+      .catch(() => {});
+  };
 
   const openEnvelope = () => {
     if (phase !== "envelope") return;
-    // Try to start music on first user gesture
-    if (musicRef.current && muted) {
-      musicRef.current.volume = 0.35;
-      musicRef.current.play().then(() => setMuted(false)).catch(() => {});
-    }
+    beginMusic();
     setPhase("opening");
     setTimeout(() => setPhase("revealed"), 2400);
   };
@@ -45,15 +71,15 @@ function Invitation() {
     const el = musicRef.current;
     if (!el) return;
     if (el.paused) {
-      el.play().then(() => setMuted(false)).catch(() => {});
+      beginMusic();
+      return;
+    }
+    if (muted) {
+      fadeTo(TARGET_VOLUME, 1200);
+      setMuted(false);
     } else {
-      if (muted) {
-        el.volume = 0.35;
-        setMuted(false);
-      } else {
-        el.volume = 0;
-        setMuted(true);
-      }
+      fadeTo(0, 800);
+      setMuted(true);
     }
   };
 
