@@ -154,17 +154,16 @@ function Envelope({ phase }: { phase: Phase }) {
   return (
     <div className="relative" style={{ perspective: "1200px" }}>
       <div
-        className="relative h-[320px] w-[260px] sm:h-[400px] sm:w-[340px] shadow-vintage"
+        className="relative h-[320px] w-[260px] sm:h-[400px] sm:w-[340px] shadow-vintage overflow-hidden"
         style={{
-          background: "linear-gradient(160deg, oklch(0.42 0.09 155), oklch(0.30 0.07 155))",
+          background: "linear-gradient(160deg, oklch(0.78 0.12 85), oklch(0.55 0.11 70))",
           borderRadius: "2px",
         }}
       >
         {/* Inner card peeking */}
         <div
-          className={`absolute inset-x-4 bottom-4 top-16 rounded-sm bg-ivory ${opening ? "animate-card-rise" : ""}`}
+          className={`absolute inset-x-4 bottom-4 top-16 rounded-sm paper-card ${opening ? "animate-card-rise" : ""}`}
           style={{
-            backgroundImage: "radial-gradient(ellipse at center, oklch(1 0 0 / 0.6), transparent 70%)",
             zIndex: opening ? 5 : 1,
           }}
         >
@@ -178,7 +177,7 @@ function Envelope({ phase }: { phase: Phase }) {
           className={`absolute inset-x-0 top-0 origin-top ${opening ? "animate-flap-open" : ""}`}
           style={{
             height: "55%",
-            background: "linear-gradient(170deg, oklch(0.38 0.085 155), oklch(0.28 0.065 155))",
+            background: "linear-gradient(170deg, oklch(0.74 0.12 85), oklch(0.52 0.11 70))",
             clipPath: "polygon(0 0, 100% 0, 50% 100%)",
             zIndex: opening ? 2 : 10,
             backfaceVisibility: "hidden",
@@ -189,7 +188,7 @@ function Envelope({ phase }: { phase: Phase }) {
         <div
           className="pointer-events-none absolute inset-0"
           style={{
-            background: "linear-gradient(to top, oklch(0.30 0.07 155) 0%, transparent 45%)",
+            background: "linear-gradient(to top, oklch(0.52 0.11 70) 0%, transparent 45%)",
             zIndex: 3,
           }}
         />
@@ -205,6 +204,7 @@ function Envelope({ phase }: { phase: Phase }) {
   );
 }
 
+
 function InvitationContent() {
   return (
     <div className="animate-fade-up">
@@ -218,7 +218,7 @@ function InvitationContent() {
 function Hero() {
   return (
     <section className="relative flex min-h-[100svh] flex-col items-center justify-center px-4 py-14 sm:px-6 sm:py-20 text-center">
-      <div className="hairline mx-auto w-full max-w-2xl bg-ivory/70 px-5 py-10 sm:px-12 sm:py-20 shadow-vintage backdrop-blur-sm">
+      <div className="hairline paper-card mx-auto w-full max-w-2xl px-5 py-10 sm:px-12 sm:py-20 shadow-vintage">
         <img src={monogram} alt="B & D monogram" className="mx-auto h-16 w-auto sm:h-28" />
 
         <p className="mt-6 font-caps text-[0.6rem] sm:text-[0.7rem] text-ink/70">Together with their families</p>
