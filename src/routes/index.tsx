@@ -365,127 +365,31 @@ function TimelineBlock() {
   const items = [
     { time: "12:00 PM", title: "Ceremony", note: "Exchange of vows" },
     { time: "12:45 PM", title: "Portraits", note: "Family photos on the courthouse steps" },
-    { time: "1:15 PM", title: "Mingle & Gather", note: "A quiet hour to greet family, share gifts, and linger together" },
+    { time: "1:15 PM", title: "Mingle & Gather", note: "Greet family, share gifts, and linger together" },
   ];
-
-  // Spiral coordinates (logarithmic rose) — petals out from the centre
-  const cx = 200;
-  const cy = 200;
-  // Build a smooth spiral SVG path
-  const spiralPath = useMemo(() => {
-    const points: string[] = [];
-    const turns = 2.6;
-    const steps = 220;
-    const a = 6;
-    const b = 16;
-    for (let i = 0; i <= steps; i++) {
-      const t = (i / steps) * turns * Math.PI * 2;
-      const r = a + b * t * 0.32;
-      const x = cx + r * Math.cos(t);
-      const y = cy + r * Math.sin(t);
-      points.push(`${i === 0 ? "M" : "L"} ${x.toFixed(2)} ${y.toFixed(2)}`);
-    }
-    return points.join(" ");
-  }, []);
-
-  // Place items along the outer half of the spiral
-  const markers = items.map((_, i) => {
-    const t = (0.55 + i * 0.45) * Math.PI * 2; // spread along outer turns
-    const r = 6 + 16 * t * 0.32;
-    return {
-      x: cx + r * Math.cos(t),
-      y: cy + r * Math.sin(t),
-    };
-  });
-
   return (
     <section>
       <SectionTitle eyebrow="Order of the Day" title="Schedule" />
-      <div className="hairline relative bg-ivory/70 p-6 sm:p-10 shadow-vintage">
-        <div className="relative mx-auto aspect-square w-full max-w-md">
-          <svg viewBox="0 0 400 400" className="absolute inset-0 h-full w-full">
-            <defs>
-              <linearGradient id="rose-stroke" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="oklch(0.78 0.12 85)" />
-                <stop offset="50%" stopColor="oklch(0.55 0.11 70)" />
-                <stop offset="100%" stopColor="oklch(0.78 0.12 85)" />
-              </linearGradient>
-            </defs>
-            {/* Decorative outer rose petals */}
-            <g
-              fill="none"
-              stroke="oklch(0.72 0.12 80 / 0.25)"
-              strokeWidth="1"
-            >
-              {Array.from({ length: 8 }).map((_, i) => {
-                const angle = (i / 8) * Math.PI * 2;
-                const x1 = cx + Math.cos(angle) * 30;
-                const y1 = cy + Math.sin(angle) * 30;
-                const x2 = cx + Math.cos(angle) * 175;
-                const y2 = cy + Math.sin(angle) * 175;
-                const cxp = cx + Math.cos(angle + 0.4) * 130;
-                const cyp = cy + Math.sin(angle + 0.4) * 130;
-                return (
-                  <path
-                    key={i}
-                    d={`M ${x1} ${y1} Q ${cxp} ${cyp} ${x2} ${y2}`}
-                  />
-                );
-              })}
-            </g>
-            {/* The spiral path */}
-            <path
-              d={spiralPath}
-              fill="none"
-              stroke="url(#rose-stroke)"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-            {/* Centre rose bud */}
-            <circle cx={cx} cy={cy} r="6" fill="oklch(0.55 0.11 70)" />
-            <circle cx={cx} cy={cy} r="11" fill="none" stroke="oklch(0.72 0.12 80 / 0.6)" />
-            {/* Marker dots */}
-            {markers.map((m, i) => (
-              <g key={i}>
-                <circle cx={m.x} cy={m.y} r="8" fill="oklch(0.975 0.012 85)" stroke="oklch(0.55 0.11 70)" strokeWidth="1.2" />
-                <circle cx={m.x} cy={m.y} r="3" fill="oklch(0.55 0.11 70)" />
-              </g>
-            ))}
-          </svg>
-
-          {/* Labels positioned over markers */}
-          {markers.map((m, i) => {
-            const it = items[i];
-            const leftPct = (m.x / 400) * 100;
-            const topPct = (m.y / 400) * 100;
-            // Decide which side the label sits based on angle from centre
-            const dx = m.x - cx;
-            const alignRight = dx < 0;
-            return (
-              <div
-                key={i}
-                className="absolute w-[44%] sm:w-[40%]"
-                style={{
-                  left: `${leftPct}%`,
-                  top: `${topPct}%`,
-                  transform: `translate(${alignRight ? "-104%" : "4%"}, -50%)`,
-                  textAlign: alignRight ? "right" : "left",
-                }}
-              >
-                <p className="font-caps text-[0.55rem] text-gold-deep">{it.time}</p>
-                <p className="mt-0.5 font-serif-display text-base leading-tight text-ink">{it.title}</p>
-                <p className="mt-0.5 text-[0.7rem] italic leading-snug text-ink/60">{it.note}</p>
-              </div>
-            );
-          })}
-        </div>
-        <p className="mt-6 text-center font-serif-display text-xs italic text-ink/60">
-          No formal reception — simply linger with us awhile.
-        </p>
-      </div>
+      <ol className="relative mx-auto max-w-md">
+        <span className="absolute left-[7px] top-2 bottom-2 w-px bg-gold/40" />
+        {items.map((it) => (
+          <li key={it.title} className="relative grid grid-cols-[auto_minmax(0,1fr)] items-start gap-4 sm:gap-5 py-4 pl-1">
+            <span className="mt-2 h-3.5 w-3.5 shrink-0 rounded-full border border-gold-deep bg-ivory shadow-[0_0_0_3px_oklch(0.975_0.012_85)]" />
+            <div className="min-w-0">
+              <p className="font-caps text-[0.6rem] text-gold-deep">{it.time}</p>
+              <p className="mt-1 font-serif-display text-lg sm:text-xl text-ink">{it.title}</p>
+              <p className="text-sm italic text-ink/60">{it.note}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p className="mt-6 text-center font-serif-display text-xs italic text-ink/60">
+        No formal reception — simply linger with us awhile.
+      </p>
     </section>
   );
 }
+
 
 function PaletteBlock() {
   const colors = [
