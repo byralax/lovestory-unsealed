@@ -99,13 +99,29 @@
     font-family: var(--font-serif);
   }
   body {
-    background-image:
-      radial-gradient(ellipse at top, oklch(1 0 0 / 0.4), transparent 60%),
-      radial-gradient(ellipse at bottom, oklch(0.88 0.045 25 / 0.15), transparent 70%),
-      url("./assets/paper-texture.jpg");
-    background-size: cover, cover, 800px 800px;
-    background-attachment: fixed;
+    position: relative;
+    isolation: isolate;
   }
+  /* Aged, crusty English paper texture behind the page content */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image: url("./assets/paper-texture.jpg");
+    background-size: 800px 800px;
+    filter: sepia(0.35) contrast(1.12) saturate(0.85) brightness(0.94);
+  }
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: radial-gradient(ellipse at center, transparent 55%, oklch(0.55 0.04 70 / 0.42) 100%);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+
 
   h1, h2, h3 {
     font-family: var(--font-serif);
@@ -141,6 +157,17 @@
   outline: 1px solid oklch(0.72 0.12 80 / 0.2);
   outline-offset: 4px;
 }
+
+@utility paper-card {
+  background-color: oklch(0.94 0.02 80);
+  background-image:
+    radial-gradient(ellipse at center, oklch(1 0 0 / 0.55), transparent 70%),
+    linear-gradient(135deg, oklch(0.95 0.018 82), oklch(0.88 0.025 75)),
+    url("./assets/paper-texture.jpg");
+  background-size: cover, cover, 600px 600px;
+  background-blend-mode: soft-light, normal, normal;
+}
+
 
 @keyframes float-slow {
   0%, 100% { transform: translateY(0) rotate(-0.5deg); }
