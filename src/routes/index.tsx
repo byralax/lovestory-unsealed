@@ -297,11 +297,11 @@ function Countdown() {
   );
 
   return (
-    <div className="mt-10 flex items-center gap-6 sm:gap-10">
+    <div className="mt-8 flex items-center gap-4 sm:gap-10">
       <Cell v={days} label="Days" />
-      <span className="h-8 w-px bg-gold/40" />
+      <span className="h-7 w-px bg-gold/40" />
       <Cell v={hours} label="Hours" />
-      <span className="h-8 w-px bg-gold/40" />
+      <span className="h-7 w-px bg-gold/40" />
       <Cell v={minutes} label="Minutes" />
     </div>
   );
@@ -309,7 +309,7 @@ function Countdown() {
 
 function DetailsSections() {
   return (
-    <div id="details" className="mx-auto max-w-2xl px-6 pb-24">
+    <div id="details" className="mx-auto max-w-2xl px-4 sm:px-6 pb-20 sm:pb-24">
       <LocationBlock />
       <TimelineBlock />
       <PaletteBlock />
@@ -321,9 +321,9 @@ function DetailsSections() {
 
 function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
-    <div className="mt-20 mb-8 text-center">
+    <div className="mt-16 sm:mt-20 mb-6 sm:mb-8 text-center">
       <p className="font-caps text-[0.6rem] text-gold-deep/80">{eyebrow}</p>
-      <h2 className="mt-3 font-script text-4xl text-ink">{title}</h2>
+      <h2 className="mt-3 font-script text-3xl sm:text-4xl text-ink">{title}</h2>
       <div className="mx-auto mt-3 h-px w-16 bg-gold/50" />
     </div>
   );
