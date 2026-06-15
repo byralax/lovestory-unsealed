@@ -372,20 +372,18 @@ function TimelineBlock() {
   return (
     <section>
       <SectionTitle eyebrow="Order of the Day" title="Schedule" />
-      <ol className="relative mx-auto max-w-md">
-        <span className="absolute left-[7px] top-2 bottom-2 w-px bg-gold/40" />
-        {items.map((it) => (
-          <li key={it.title} className="relative grid grid-cols-[auto_minmax(0,1fr)] items-start gap-4 sm:gap-5 py-4 pl-1">
-            <span className="mt-2 h-3.5 w-3.5 shrink-0 rounded-full border border-gold-deep bg-ivory shadow-[0_0_0_3px_oklch(0.975_0.012_85)]" />
-            <div className="min-w-0">
-              <p className="font-caps text-[0.6rem] text-gold-deep">{it.time}</p>
-              <p className="mt-1 font-serif-display text-lg sm:text-xl text-ink">{it.title}</p>
-              <p className="text-sm italic text-ink/60">{it.note}</p>
-            </div>
+      <ol className="relative mx-auto flex max-w-sm flex-col items-center gap-6">
+        {items.map((it, i) => (
+          <li key={it.title} className="flex w-full flex-col items-center text-center">
+            <span className="h-2.5 w-2.5 rounded-full border border-gold-deep bg-ivory" />
+            <p className="mt-3 font-caps text-[0.6rem] text-gold-deep">{it.time}</p>
+            <p className="mt-1 font-serif-display text-lg sm:text-xl text-ink">{it.title}</p>
+            <p className="mt-1 text-sm italic text-ink/60 max-w-xs">{it.note}</p>
+            {i < items.length - 1 && <span className="mt-6 h-8 w-px bg-gold/40" />}
           </li>
         ))}
       </ol>
-      <p className="mt-6 text-center font-serif-display text-xs italic text-ink/60">
+      <p className="mt-8 text-center font-serif-display text-xs italic text-ink/60">
         No formal reception — simply linger with us awhile.
       </p>
     </section>
