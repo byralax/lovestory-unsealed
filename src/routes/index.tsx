@@ -499,19 +499,33 @@ function RsvpDialog({ onClose }: { onClose: () => void }) {
                   />
                 </Field>
               )}
+              <Field label="A Note for the Couple (optional)">
+                <textarea
+                  rows={3}
+                  maxLength={500}
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  className="w-full resize-none border-b border-gold/40 bg-transparent py-2 font-serif-display text-base text-ink outline-none focus:border-gold-deep"
+                />
+              </Field>
+              {error && (
+                <p className="text-center font-caps text-[0.6rem] text-red-700">{error}</p>
+              )}
               <div className="flex gap-3 pt-4">
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 border border-gold/40 py-3 font-caps text-[0.6rem] text-ink/70 hover:border-gold-deep"
+                  disabled={submitting}
+                  className="flex-1 border border-gold/40 py-3 font-caps text-[0.6rem] text-ink/70 hover:border-gold-deep disabled:opacity-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 border border-gold-deep bg-gold-deep py-3 font-caps text-[0.6rem] text-ivory hover:bg-ink hover:border-ink"
+                  disabled={submitting || !form.name.trim()}
+                  className="flex-1 border border-gold-deep bg-gold-deep py-3 font-caps text-[0.6rem] text-ivory hover:bg-ink hover:border-ink disabled:opacity-60"
                 >
-                  Send Reply
+                  {submitting ? "Sending…" : "Send Reply"}
                 </button>
               </div>
             </form>
