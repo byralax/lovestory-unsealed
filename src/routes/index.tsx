@@ -154,7 +154,7 @@ function Envelope({ phase }: { phase: Phase }) {
   return (
     <div className="relative" style={{ perspective: "1200px" }}>
       <div
-        className="relative h-[300px] w-[250px] xs:h-[340px] xs:w-[280px] sm:h-[400px] sm:w-[340px] shadow-vintage"
+        className="relative h-[320px] w-[260px] sm:h-[400px] sm:w-[340px] shadow-vintage"
         style={{
           background: "linear-gradient(160deg, oklch(0.42 0.09 155), oklch(0.30 0.07 155))",
           borderRadius: "2px",
