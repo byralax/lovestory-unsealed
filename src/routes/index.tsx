@@ -485,7 +485,7 @@ function RsvpDialog({ onClose }: { onClose: () => void }) {
       onClick={onClose}
     >
       <div
-        className="hairline w-full max-w-md bg-ivory p-8 shadow-vintage animate-fade-up"
+        className="hairline w-full max-w-md max-h-[92vh] overflow-y-auto bg-ivory p-6 sm:p-8 shadow-vintage animate-fade-up"
         onClick={(e) => e.stopPropagation()}
       >
         <p className="text-center font-caps text-[0.6rem] text-gold-deep">RSVP</p>
