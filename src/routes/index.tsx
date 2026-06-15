@@ -620,11 +620,11 @@ function CalendarBlock() {
 
 function Footer() {
   return (
-    <footer className="border-t border-gold/20 px-6 py-16 text-center">
+    <footer className="border-t border-gold/20 px-4 sm:px-6 py-12 sm:py-16 text-center">
       <img src={monogram} alt="" className="mx-auto h-10 w-auto opacity-70" />
       <p className="mt-6 font-script text-3xl text-gold-gradient">Byron &amp; Diana</p>
       <p className="mt-3 font-caps text-[0.55rem] text-ink/50">III · VII · MMXXVI</p>
-      <p className="mt-8 font-serif-display text-xs italic text-ink/50">
+      <p className="mt-6 sm:mt-8 font-serif-display text-xs italic text-ink/50">
         Your presence is the only gift we require.
       </p>
     </footer>
