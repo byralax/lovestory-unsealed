@@ -543,7 +543,7 @@ function RsvpBlock() {
 }
 
 function RsvpDialog({ onClose }: { onClose: () => void }) {
-  const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", attending: "yes", guests: 1, message: "" });
@@ -565,13 +565,13 @@ function RsvpDialog({ onClose }: { onClose: () => void }) {
         }),
       });
       if (!res.ok) throw new Error("Submission failed");
-      setSubmitted(true);
+      navigate({ to: "/thank-you" });
     } catch {
       setError("Something went wrong. Please try again.");
-    } finally {
       setSubmitting(false);
     }
   };
+
 
   return (
     <div
