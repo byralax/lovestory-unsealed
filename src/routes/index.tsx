@@ -3,6 +3,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import waxSeal from "@/assets/wax-seal.png";
 import monogram from "@/assets/monogram.png";
 import courthouse from "@/assets/courthouse.jpg";
+import acousticAsset from "@/assets/acoustic.mp3.asset.json";
+
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrevjyyj";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -56,8 +59,8 @@ function Invitation() {
   return (
     <main className="relative min-h-screen overflow-x-hidden">
       {/* Soft acoustic background music — replace src with your licensed track */}
-      <audio ref={musicRef} loop preload="none">
-        <source src="/audio/acoustic.mp3" type="audio/mpeg" />
+      <audio ref={musicRef} loop preload="auto">
+        <source src={acousticAsset.url} type="audio/mpeg" />
       </audio>
 
       <MuteToggle muted={muted} onToggle={toggleMute} />
@@ -414,12 +417,33 @@ function RsvpBlock() {
 
 function RsvpDialog({ onClose }: { onClose: () => void }) {
   const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({ name: "", attending: "yes", guests: 1 });
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [form, setForm] = useState({ name: "", attending: "yes", guests: 1, message: "" });
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: wire to Formspree/Google Forms/Cloud — for now we just acknowledge.
-    setSubmitted(true);
+    setSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          attending: form.attending === "yes" ? "Joyfully Accepts" : "Regretfully Declines",
+          guests: form.attending === "yes" ? form.guests : 0,
+          message: form.message,
+          _subject: `RSVP from ${form.name} — Byron & Diana`,
+        }),
+      });
+      if (!res.ok) throw new Error("Submission failed");
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
