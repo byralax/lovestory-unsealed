@@ -340,7 +340,7 @@ function LocationBlock() {
           loading="lazy"
           className="aspect-[4/3] w-full object-cover"
         />
-        <div className="p-6 text-center">
+        <div className="p-5 sm:p-6 text-center">
           <p className="font-serif-display text-base text-ink">
             Harris County Justice of the Peace
           </p>
@@ -350,7 +350,7 @@ function LocationBlock() {
             href={`https://www.google.com/maps/search/?api=1&query=${VENUE_QUERY}`}
             target="_blank"
             rel="noreferrer"
-            className="mt-5 inline-block border border-gold-deep/70 px-6 py-2 font-caps text-[0.65rem] text-gold-deep transition hover:bg-gold-deep hover:text-ivory"
+            className="mt-5 inline-block border border-gold-deep/70 px-6 py-2.5 font-caps text-[0.65rem] text-gold-deep transition hover:bg-gold-deep hover:text-ivory"
           >
             View on Map
           </a>
