@@ -3,6 +3,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import waxSeal from "@/assets/wax-seal.png";
 import monogram from "@/assets/monogram.png";
 import courthouse from "@/assets/courthouse.jpg";
+import acousticAsset from "@/assets/acoustic.mp3.asset.json";
+
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrevjyyj";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -56,8 +59,8 @@ function Invitation() {
   return (
     <main className="relative min-h-screen overflow-x-hidden">
       {/* Soft acoustic background music — replace src with your licensed track */}
-      <audio ref={musicRef} loop preload="none">
-        <source src="/audio/acoustic.mp3" type="audio/mpeg" />
+      <audio ref={musicRef} loop preload="auto">
+        <source src={acousticAsset.url} type="audio/mpeg" />
       </audio>
 
       <MuteToggle muted={muted} onToggle={toggleMute} />
@@ -414,12 +417,33 @@ function RsvpBlock() {
 
 function RsvpDialog({ onClose }: { onClose: () => void }) {
   const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({ name: "", attending: "yes", guests: 1 });
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [form, setForm] = useState({ name: "", attending: "yes", guests: 1, message: "" });
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: wire to Formspree/Google Forms/Cloud — for now we just acknowledge.
-    setSubmitted(true);
+    setSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          attending: form.attending === "yes" ? "Joyfully Accepts" : "Regretfully Declines",
+          guests: form.attending === "yes" ? form.guests : 0,
+          message: form.message,
+          _subject: `RSVP from ${form.name} — Byron & Diana`,
+        }),
+      });
+      if (!res.ok) throw new Error("Submission failed");
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -475,19 +499,33 @@ function RsvpDialog({ onClose }: { onClose: () => void }) {
                   />
                 </Field>
               )}
+              <Field label="A Note for the Couple (optional)">
+                <textarea
+                  rows={3}
+                  maxLength={500}
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  className="w-full resize-none border-b border-gold/40 bg-transparent py-2 font-serif-display text-base text-ink outline-none focus:border-gold-deep"
+                />
+              </Field>
+              {error && (
+                <p className="text-center font-caps text-[0.6rem] text-red-700">{error}</p>
+              )}
               <div className="flex gap-3 pt-4">
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 border border-gold/40 py-3 font-caps text-[0.6rem] text-ink/70 hover:border-gold-deep"
+                  disabled={submitting}
+                  className="flex-1 border border-gold/40 py-3 font-caps text-[0.6rem] text-ink/70 hover:border-gold-deep disabled:opacity-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 border border-gold-deep bg-gold-deep py-3 font-caps text-[0.6rem] text-ivory hover:bg-ink hover:border-ink"
+                  disabled={submitting || !form.name.trim()}
+                  className="flex-1 border border-gold-deep bg-gold-deep py-3 font-caps text-[0.6rem] text-ivory hover:bg-ink hover:border-ink disabled:opacity-60"
                 >
-                  Send Reply
+                  {submitting ? "Sending…" : "Send Reply"}
                 </button>
               </div>
             </form>
