@@ -102,11 +102,11 @@
     background-image:
       radial-gradient(ellipse at top, oklch(1 0 0 / 0.4), transparent 60%),
       radial-gradient(ellipse at bottom, oklch(0.88 0.045 25 / 0.15), transparent 70%),
-      url("/src/assets/paper-texture.jpg");
+      url("./assets/paper-texture.jpg");
     background-size: cover, cover, 800px 800px;
     background-attachment: fixed;
-    background-blend-mode: normal, normal, multiply;
   }
+
   h1, h2, h3 {
     font-family: var(--font-serif);
     font-weight: 400;
