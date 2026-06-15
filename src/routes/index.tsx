@@ -403,22 +403,22 @@ function PaletteBlock() {
   return (
     <section>
       <SectionTitle eyebrow="Attire" title="Dress in Our Palette" />
-      <div className="hairline bg-ivory/70 p-8 text-center shadow-vintage">
-        <p className="font-serif-display text-base italic text-ink/80">
+      <div className="hairline bg-ivory/70 p-6 sm:p-8 text-center shadow-vintage">
+        <p className="font-serif-display text-sm sm:text-base italic text-ink/80">
           We'd love for our guests to dress in shades from our wedding palette.
         </p>
-        <div className="mt-8 grid grid-cols-4 gap-4 sm:gap-6">
+        <div className="mt-7 grid grid-cols-4 gap-3 sm:gap-6">
           {colors.map((c) => (
-            <div key={c.name} className="flex flex-col items-center gap-3">
+            <div key={c.name} className="flex flex-col items-center gap-2 sm:gap-3">
               <span
-                className="h-16 w-16 rounded-full border border-gold/30 shadow-[inset_0_2px_6px_rgba(255,255,255,0.5),0_4px_12px_rgba(0,0,0,0.08)] sm:h-20 sm:w-20"
+                className="h-12 w-12 sm:h-20 sm:w-20 rounded-full border border-gold/30 shadow-[inset_0_2px_6px_rgba(255,255,255,0.5),0_4px_12px_rgba(0,0,0,0.08)]"
                 style={{ background: c.css }}
               />
-              <span className="font-caps text-[0.55rem] text-ink/70">{c.name}</span>
+              <span className="font-caps text-[0.5rem] sm:text-[0.55rem] text-ink/70 text-center leading-tight">{c.name}</span>
             </div>
           ))}
         </div>
-        <p className="mt-8 font-caps text-[0.6rem] text-ink/60">Kindly avoid white or ivory</p>
+        <p className="mt-7 font-caps text-[0.55rem] sm:text-[0.6rem] text-ink/60">Kindly avoid white or ivory</p>
       </div>
     </section>
   );
@@ -438,7 +438,7 @@ function RsvpBlock() {
         </p>
         <button
           onClick={() => setOpen(true)}
-          className="mt-6 inline-block border border-gold-deep bg-gold-deep px-10 py-3 font-caps text-[0.65rem] text-ivory transition hover:bg-ink hover:border-ink"
+          className="mt-6 inline-block w-full sm:w-auto border border-gold-deep bg-gold-deep px-10 py-3 font-caps text-[0.65rem] text-ivory transition hover:bg-ink hover:border-ink"
         >
           Kindly Respond
         </button>
