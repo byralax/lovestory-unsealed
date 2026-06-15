@@ -395,17 +395,17 @@ function TimelineBlock() {
 
 function PaletteBlock() {
   const colors = [
-    { name: "Baby Blue", css: "oklch(0.88 0.04 235)" },
-    { name: "Champagne", css: "oklch(0.89 0.045 80)" },
-    { name: "Soft Blush", css: "oklch(0.88 0.045 25)" },
-    { name: "Emerald", css: "oklch(0.36 0.08 155)" },
+    { name: "Champagne Rose", css: "oklch(0.82 0.055 35)" },
+    { name: "Gold", css: "oklch(0.72 0.12 80)" },
+    { name: "Dark Brown", css: "oklch(0.38 0.05 65)" },
+    { name: "Beige", css: "oklch(0.88 0.03 80)" },
   ];
   return (
     <section>
-      <SectionTitle eyebrow="Attire" title="Dress in Our Palette" />
-      <div className="hairline bg-ivory/70 p-6 sm:p-8 text-center shadow-vintage">
+      <SectionTitle eyebrow="Attire" title="A Suggested Palette" />
+      <div className="hairline paper-card p-6 sm:p-8 text-center shadow-vintage">
         <p className="font-serif-display text-sm sm:text-base italic text-ink/80">
-          We'd love for our guests to dress in shades from our wedding palette.
+          Wear whatever makes you feel comfortable — these shades are simply gentle suggestions.
         </p>
         <div className="mt-7 grid grid-cols-4 gap-3 sm:gap-6">
           {colors.map((c) => (
@@ -418,11 +418,12 @@ function PaletteBlock() {
             </div>
           ))}
         </div>
-        <p className="mt-7 font-caps text-[0.55rem] sm:text-[0.6rem] text-ink/60">Kindly avoid white or ivory</p>
+        <p className="mt-7 font-caps text-[0.55rem] sm:text-[0.6rem] text-ink/60">White and ivory are welcome too</p>
       </div>
     </section>
   );
 }
+
 
 function RsvpBlock() {
   const [open, setOpen] = useState(false);
