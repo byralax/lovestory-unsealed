@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import waxSeal from "@/assets/wax-seal.png";
 import monogram from "@/assets/monogram.png";
@@ -6,6 +6,7 @@ import courthouse from "@/assets/courthouse.jpg";
 import acousticAsset from "@/assets/acoustic.mp3.asset.json";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrevjyyj";
+const TARGET_VOLUME = 0.32;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -28,14 +29,40 @@ function Invitation() {
   const [phase, setPhase] = useState<Phase>("envelope");
   const [muted, setMuted] = useState(true);
   const musicRef = useRef<HTMLAudioElement | null>(null);
+  const fadeRef = useRef<number | null>(null);
+
+  const fadeTo = (target: number, durationMs: number) => {
+    const el = musicRef.current;
+    if (!el) return;
+    if (fadeRef.current) window.clearInterval(fadeRef.current);
+    const start = el.volume;
+    const startTime = performance.now();
+    fadeRef.current = window.setInterval(() => {
+      const t = Math.min(1, (performance.now() - startTime) / durationMs);
+      el.volume = start + (target - start) * t;
+      if (t >= 1 && fadeRef.current) {
+        window.clearInterval(fadeRef.current);
+        fadeRef.current = null;
+      }
+    }, 60);
+  };
+
+  const beginMusic = () => {
+    const el = musicRef.current;
+    if (!el) return;
+    el.volume = 0;
+    el.play()
+      .then(() => {
+        setMuted(false);
+        // Slow, intimate creep — ~12s to reach target
+        fadeTo(TARGET_VOLUME, 12000);
+      })
+      .catch(() => {});
+  };
 
   const openEnvelope = () => {
     if (phase !== "envelope") return;
-    // Try to start music on first user gesture
-    if (musicRef.current && muted) {
-      musicRef.current.volume = 0.35;
-      musicRef.current.play().then(() => setMuted(false)).catch(() => {});
-    }
+    beginMusic();
     setPhase("opening");
     setTimeout(() => setPhase("revealed"), 2400);
   };
@@ -44,15 +71,15 @@ function Invitation() {
     const el = musicRef.current;
     if (!el) return;
     if (el.paused) {
-      el.play().then(() => setMuted(false)).catch(() => {});
+      beginMusic();
+      return;
+    }
+    if (muted) {
+      fadeTo(TARGET_VOLUME, 1200);
+      setMuted(false);
     } else {
-      if (muted) {
-        el.volume = 0.35;
-        setMuted(false);
-      } else {
-        el.volume = 0;
-        setMuted(true);
-      }
+      fadeTo(0, 800);
+      setMuted(true);
     }
   };
 
@@ -337,25 +364,125 @@ function LocationBlock() {
 function TimelineBlock() {
   const items = [
     { time: "12:00 PM", title: "Ceremony", note: "Exchange of vows" },
-    { time: "12:45 PM", title: "Family Photos", note: "On the courthouse steps" },
-    { time: "2:00 PM", title: "Celebration Luncheon", note: "Details to follow" },
+    { time: "12:45 PM", title: "Portraits", note: "Family photos on the courthouse steps" },
+    { time: "1:15 PM", title: "Mingle & Gather", note: "A quiet hour to greet family, share gifts, and linger together" },
   ];
+
+  // Spiral coordinates (logarithmic rose) — petals out from the centre
+  const cx = 200;
+  const cy = 200;
+  // Build a smooth spiral SVG path
+  const spiralPath = useMemo(() => {
+    const points: string[] = [];
+    const turns = 2.6;
+    const steps = 220;
+    const a = 6;
+    const b = 16;
+    for (let i = 0; i <= steps; i++) {
+      const t = (i / steps) * turns * Math.PI * 2;
+      const r = a + b * t * 0.32;
+      const x = cx + r * Math.cos(t);
+      const y = cy + r * Math.sin(t);
+      points.push(`${i === 0 ? "M" : "L"} ${x.toFixed(2)} ${y.toFixed(2)}`);
+    }
+    return points.join(" ");
+  }, []);
+
+  // Place items along the outer half of the spiral
+  const markers = items.map((_, i) => {
+    const t = (0.55 + i * 0.45) * Math.PI * 2; // spread along outer turns
+    const r = 6 + 16 * t * 0.32;
+    return {
+      x: cx + r * Math.cos(t),
+      y: cy + r * Math.sin(t),
+    };
+  });
+
   return (
     <section>
       <SectionTitle eyebrow="Order of the Day" title="Schedule" />
-      <ol className="relative mx-auto max-w-md">
-        <span className="absolute left-[7px] top-2 bottom-2 w-px bg-gold/40" />
-        {items.map((it) => (
-          <li key={it.title} className="relative grid grid-cols-[auto_1fr] items-start gap-5 py-4 pl-1">
-            <span className="mt-2 h-3.5 w-3.5 shrink-0 rounded-full border border-gold-deep bg-ivory shadow-[0_0_0_3px_oklch(0.975_0.012_85)]" />
-            <div className="min-w-0">
-              <p className="font-caps text-[0.6rem] text-gold-deep">{it.time}</p>
-              <p className="mt-1 font-serif-display text-xl text-ink">{it.title}</p>
-              <p className="text-sm italic text-ink/60">{it.note}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
+      <div className="hairline relative bg-ivory/70 p-6 sm:p-10 shadow-vintage">
+        <div className="relative mx-auto aspect-square w-full max-w-md">
+          <svg viewBox="0 0 400 400" className="absolute inset-0 h-full w-full">
+            <defs>
+              <linearGradient id="rose-stroke" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="oklch(0.78 0.12 85)" />
+                <stop offset="50%" stopColor="oklch(0.55 0.11 70)" />
+                <stop offset="100%" stopColor="oklch(0.78 0.12 85)" />
+              </linearGradient>
+            </defs>
+            {/* Decorative outer rose petals */}
+            <g
+              fill="none"
+              stroke="oklch(0.72 0.12 80 / 0.25)"
+              strokeWidth="1"
+            >
+              {Array.from({ length: 8 }).map((_, i) => {
+                const angle = (i / 8) * Math.PI * 2;
+                const x1 = cx + Math.cos(angle) * 30;
+                const y1 = cy + Math.sin(angle) * 30;
+                const x2 = cx + Math.cos(angle) * 175;
+                const y2 = cy + Math.sin(angle) * 175;
+                const cxp = cx + Math.cos(angle + 0.4) * 130;
+                const cyp = cy + Math.sin(angle + 0.4) * 130;
+                return (
+                  <path
+                    key={i}
+                    d={`M ${x1} ${y1} Q ${cxp} ${cyp} ${x2} ${y2}`}
+                  />
+                );
+              })}
+            </g>
+            {/* The spiral path */}
+            <path
+              d={spiralPath}
+              fill="none"
+              stroke="url(#rose-stroke)"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+            {/* Centre rose bud */}
+            <circle cx={cx} cy={cy} r="6" fill="oklch(0.55 0.11 70)" />
+            <circle cx={cx} cy={cy} r="11" fill="none" stroke="oklch(0.72 0.12 80 / 0.6)" />
+            {/* Marker dots */}
+            {markers.map((m, i) => (
+              <g key={i}>
+                <circle cx={m.x} cy={m.y} r="8" fill="oklch(0.975 0.012 85)" stroke="oklch(0.55 0.11 70)" strokeWidth="1.2" />
+                <circle cx={m.x} cy={m.y} r="3" fill="oklch(0.55 0.11 70)" />
+              </g>
+            ))}
+          </svg>
+
+          {/* Labels positioned over markers */}
+          {markers.map((m, i) => {
+            const it = items[i];
+            const leftPct = (m.x / 400) * 100;
+            const topPct = (m.y / 400) * 100;
+            // Decide which side the label sits based on angle from centre
+            const dx = m.x - cx;
+            const alignRight = dx < 0;
+            return (
+              <div
+                key={i}
+                className="absolute w-[44%] sm:w-[40%]"
+                style={{
+                  left: `${leftPct}%`,
+                  top: `${topPct}%`,
+                  transform: `translate(${alignRight ? "-104%" : "4%"}, -50%)`,
+                  textAlign: alignRight ? "right" : "left",
+                }}
+              >
+                <p className="font-caps text-[0.55rem] text-gold-deep">{it.time}</p>
+                <p className="mt-0.5 font-serif-display text-base leading-tight text-ink">{it.title}</p>
+                <p className="mt-0.5 text-[0.7rem] italic leading-snug text-ink/60">{it.note}</p>
+              </div>
+            );
+          })}
+        </div>
+        <p className="mt-6 text-center font-serif-display text-xs italic text-ink/60">
+          No formal reception — simply linger with us awhile.
+        </p>
+      </div>
     </section>
   );
 }
@@ -416,7 +543,7 @@ function RsvpBlock() {
 }
 
 function RsvpDialog({ onClose }: { onClose: () => void }) {
-  const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", attending: "yes", guests: 1, message: "" });
@@ -438,13 +565,13 @@ function RsvpDialog({ onClose }: { onClose: () => void }) {
         }),
       });
       if (!res.ok) throw new Error("Submission failed");
-      setSubmitted(true);
+      navigate({ to: "/thank-you" });
     } catch {
       setError("Something went wrong. Please try again.");
-    } finally {
       setSubmitting(false);
     }
   };
+
 
   return (
     <div
@@ -455,96 +582,79 @@ function RsvpDialog({ onClose }: { onClose: () => void }) {
         className="hairline w-full max-w-md bg-ivory p-8 shadow-vintage animate-fade-up"
         onClick={(e) => e.stopPropagation()}
       >
-        {!submitted ? (
-          <>
-            <p className="text-center font-caps text-[0.6rem] text-gold-deep">RSVP</p>
-            <h3 className="mt-2 text-center font-script text-3xl text-ink">Your Reply</h3>
-            <form onSubmit={submit} className="mt-6 space-y-5">
-              <Field label="Full Name">
-                <input
-                  required
-                  maxLength={100}
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full border-b border-gold/40 bg-transparent py-2 font-serif-display text-base text-ink outline-none focus:border-gold-deep"
-                />
-              </Field>
-              <Field label="Will you attend?">
-                <div className="flex gap-3">
-                  {["yes", "no"].map((v) => (
-                    <button
-                      key={v}
-                      type="button"
-                      onClick={() => setForm({ ...form, attending: v })}
-                      className={`flex-1 border py-2 font-caps text-[0.6rem] transition ${
-                        form.attending === v
-                          ? "border-gold-deep bg-gold-deep text-ivory"
-                          : "border-gold/40 text-ink/70 hover:border-gold-deep"
-                      }`}
-                    >
-                      {v === "yes" ? "Joyfully Accepts" : "Regretfully Declines"}
-                    </button>
-                  ))}
-                </div>
-              </Field>
-              {form.attending === "yes" && (
-                <Field label="Number of Guests">
-                  <input
-                    type="number"
-                    min={1}
-                    max={6}
-                    value={form.guests}
-                    onChange={(e) => setForm({ ...form, guests: Number(e.target.value) })}
-                    className="w-24 border-b border-gold/40 bg-transparent py-2 font-serif-display text-base text-ink outline-none focus:border-gold-deep"
-                  />
-                </Field>
-              )}
-              <Field label="A Note for the Couple (optional)">
-                <textarea
-                  rows={3}
-                  maxLength={500}
-                  value={form.message}
-                  onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  className="w-full resize-none border-b border-gold/40 bg-transparent py-2 font-serif-display text-base text-ink outline-none focus:border-gold-deep"
-                />
-              </Field>
-              {error && (
-                <p className="text-center font-caps text-[0.6rem] text-red-700">{error}</p>
-              )}
-              <div className="flex gap-3 pt-4">
+        <p className="text-center font-caps text-[0.6rem] text-gold-deep">RSVP</p>
+        <h3 className="mt-2 text-center font-script text-3xl text-ink">Your Reply</h3>
+        <form onSubmit={submit} className="mt-6 space-y-5">
+          <Field label="Full Name">
+            <input
+              required
+              maxLength={100}
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              className="w-full border-b border-gold/40 bg-transparent py-2 font-serif-display text-base text-ink outline-none focus:border-gold-deep"
+            />
+          </Field>
+          <Field label="Will you attend?">
+            <div className="flex gap-3">
+              {["yes", "no"].map((v) => (
                 <button
+                  key={v}
                   type="button"
-                  onClick={onClose}
-                  disabled={submitting}
-                  className="flex-1 border border-gold/40 py-3 font-caps text-[0.6rem] text-ink/70 hover:border-gold-deep disabled:opacity-50"
+                  onClick={() => setForm({ ...form, attending: v })}
+                  className={`flex-1 border py-2 font-caps text-[0.6rem] transition ${
+                    form.attending === v
+                      ? "border-gold-deep bg-gold-deep text-ivory"
+                      : "border-gold/40 text-ink/70 hover:border-gold-deep"
+                  }`}
                 >
-                  Cancel
+                  {v === "yes" ? "Joyfully Accepts" : "Regretfully Declines"}
                 </button>
-                <button
-                  type="submit"
-                  disabled={submitting || !form.name.trim()}
-                  className="flex-1 border border-gold-deep bg-gold-deep py-3 font-caps text-[0.6rem] text-ivory hover:bg-ink hover:border-ink disabled:opacity-60"
-                >
-                  {submitting ? "Sending…" : "Send Reply"}
-                </button>
-              </div>
-            </form>
-          </>
-        ) : (
-          <div className="py-6 text-center">
-            <p className="font-caps text-[0.6rem] text-gold-deep">Thank You</p>
-            <h3 className="mt-3 font-script text-4xl text-ink">With gratitude</h3>
-            <p className="mt-4 font-serif-display italic text-ink/70">
-              Your reply has been received. We can't wait to celebrate.
-            </p>
+              ))}
+            </div>
+          </Field>
+          {form.attending === "yes" && (
+            <Field label="Number of Guests">
+              <input
+                type="number"
+                min={1}
+                max={6}
+                value={form.guests}
+                onChange={(e) => setForm({ ...form, guests: Number(e.target.value) })}
+                className="w-24 border-b border-gold/40 bg-transparent py-2 font-serif-display text-base text-ink outline-none focus:border-gold-deep"
+              />
+            </Field>
+          )}
+          <Field label="A Note for the Couple (optional)">
+            <textarea
+              rows={3}
+              maxLength={500}
+              value={form.message}
+              onChange={(e) => setForm({ ...form, message: e.target.value })}
+              className="w-full resize-none border-b border-gold/40 bg-transparent py-2 font-serif-display text-base text-ink outline-none focus:border-gold-deep"
+            />
+          </Field>
+          {error && (
+            <p className="text-center font-caps text-[0.6rem] text-red-700">{error}</p>
+          )}
+          <div className="flex gap-3 pt-4">
             <button
+              type="button"
               onClick={onClose}
-              className="mt-8 border border-gold-deep bg-gold-deep px-10 py-2 font-caps text-[0.6rem] text-ivory"
+              disabled={submitting}
+              className="flex-1 border border-gold/40 py-3 font-caps text-[0.6rem] text-ink/70 hover:border-gold-deep disabled:opacity-50"
             >
-              Close
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={submitting || !form.name.trim()}
+              className="flex-1 border border-gold-deep bg-gold-deep py-3 font-caps text-[0.6rem] text-ivory hover:bg-ink hover:border-ink disabled:opacity-60"
+            >
+              {submitting ? "Sending…" : "Send Reply"}
             </button>
           </div>
-        )}
+        </form>
+
       </div>
     </div>
   );
