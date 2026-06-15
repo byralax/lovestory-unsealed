@@ -223,8 +223,8 @@ function Hero() {
 
         <p className="mt-6 font-caps text-[0.6rem] sm:text-[0.7rem] text-ink/70">Together with their families</p>
 
-        <h1 className="mt-3 font-script text-5xl xs:text-6xl sm:text-7xl leading-[0.9] text-gold-gradient break-words">
-          Byron <span className="font-serif-display italic text-4xl xs:text-5xl sm:text-6xl">&amp;</span> Diana
+        <h1 className="mt-3 font-script text-[3.25rem] sm:text-7xl leading-[0.9] text-gold-gradient break-words">
+          Byron <span className="font-serif-display italic text-[2.5rem] sm:text-6xl">&amp;</span> Diana
         </h1>
 
         <div className="mx-auto mt-6 flex items-center gap-2 sm:gap-3">
