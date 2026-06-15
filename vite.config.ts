@@ -8,14 +8,16 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
   tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     server: { entry: "server" },
   },
-  // We pass additional configuration override to Nitro to output a static site
+  // We force Nitro into a completely static prerender mode
   nitro: {
-    preset: "github-pages", // Tells Nitro to build a static site optimized for GitHub Pages
+    static: true,
+    prerender: {
+      routes: ['/'],
+    }
   },
   vite: {
-    base: "/lovestory-unsealed/", // !!! REPLACE with your actual GitHub repository name !!!
+    base: "/lovestory-unsealed/",
   }
 });
