@@ -395,10 +395,10 @@ function TimelineBlock() {
 
 function PaletteBlock() {
   const colors = [
-    { name: "Champagne Rose", css: "oklch(0.82 0.055 35)" },
-    { name: "Gold", css: "oklch(0.72 0.12 80)" },
-    { name: "Dark Brown", css: "oklch(0.38 0.05 65)" },
-    { name: "Beige", css: "oklch(0.88 0.03 80)" },
+    { name: "Champagne Rose", css: "#F1DDCF" },
+    { name: "Gold", css: "#FFD700" },
+    { name: "Dark Brown", css: "#654321" },
+    { name: "Beige", css: "#BE9D6A" },
   ];
   return (
     <section>
