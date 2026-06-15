@@ -125,9 +125,9 @@ function MuteToggle({ muted, onToggle }: { muted: boolean; onToggle: () => void 
 
 function EnvelopeStage({ phase, onOpen }: { phase: Phase; onOpen: () => void }) {
   return (
-    <section className="flex min-h-screen items-center justify-center px-6 py-16">
-      <div className="flex flex-col items-center gap-8">
-        <p className="font-caps text-[0.65rem] text-gold-deep/80">An Invitation · MMXXVI</p>
+    <section className="flex min-h-[100svh] items-center justify-center px-4 py-10 sm:px-6 sm:py-16">
+      <div className="flex flex-col items-center gap-6 sm:gap-8">
+        <p className="font-caps text-[0.6rem] sm:text-[0.65rem] text-gold-deep/80">An Invitation · MMXXVI</p>
 
         <button
           onClick={onOpen}
@@ -140,13 +140,14 @@ function EnvelopeStage({ phase, onOpen }: { phase: Phase; onOpen: () => void }) 
           </div>
         </button>
 
-        <p className="font-caps text-xs text-ink/70">
+        <p className="font-caps text-[0.65rem] sm:text-xs text-ink/70">
           {phase === "envelope" ? "Tap to Open" : "Opening…"}
         </p>
       </div>
     </section>
   );
 }
+
 
 function Envelope({ phase }: { phase: Phase }) {
   const opening = phase === "opening";
