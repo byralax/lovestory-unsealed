@@ -198,7 +198,7 @@ function Envelope({ phase }: { phase: Phase }) {
         <img
           src={waxSeal}
           alt="Champagne blush wax seal with B and D monogram"
-          className={`pointer-events-none absolute left-1/2 top-[42%] z-20 h-32 w-32 sm:h-40 sm:w-40 -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_8px_16px_rgba(80,40,30,0.35)] ${opening ? "animate-seal-crack" : "animate-shimmer"}`}
+          className={`pointer-events-none absolute left-1/2 top-[42%] z-20 h-28 w-28 sm:h-40 sm:w-40 -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_8px_16px_rgba(80,40,30,0.35)] ${opening ? "animate-seal-crack" : "animate-shimmer"}`}
         />
       </div>
     </div>
