@@ -227,7 +227,7 @@ function Hero() {
           Byron <span className="font-serif-display italic text-[2.5rem] sm:text-6xl">&amp;</span> Diana
         </h1>
 
-        <div className="mx-auto mt-6 flex items-center gap-2 sm:gap-3">
+        <div className="mx-auto mt-6 flex w-full items-center justify-center gap-2 sm:gap-3">
           <span className="h-px w-6 sm:w-12 bg-gold/50" />
           <span className="font-caps text-[0.5rem] sm:text-[0.6rem] text-ink/60">Request the honour of your presence</span>
           <span className="h-px w-6 sm:w-12 bg-gold/50" />
