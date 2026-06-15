@@ -217,42 +217,42 @@ function InvitationContent() {
 
 function Hero() {
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center px-6 py-20 text-center">
-      <div className="hairline mx-auto w-full max-w-2xl bg-ivory/70 px-6 py-14 sm:px-12 sm:py-20 shadow-vintage backdrop-blur-sm">
-        <img src={monogram} alt="B & D monogram" className="mx-auto h-20 w-auto sm:h-28" />
+    <section className="relative flex min-h-[100svh] flex-col items-center justify-center px-4 py-14 sm:px-6 sm:py-20 text-center">
+      <div className="hairline mx-auto w-full max-w-2xl bg-ivory/70 px-5 py-10 sm:px-12 sm:py-20 shadow-vintage backdrop-blur-sm">
+        <img src={monogram} alt="B & D monogram" className="mx-auto h-16 w-auto sm:h-28" />
 
-        <p className="mt-8 font-caps text-[0.7rem] text-ink/70">Together with their families</p>
+        <p className="mt-6 font-caps text-[0.6rem] sm:text-[0.7rem] text-ink/70">Together with their families</p>
 
-        <h1 className="mt-4 font-script text-6xl sm:text-7xl leading-[0.9] text-gold-gradient">
-          Byron <span className="font-serif-display italic text-5xl sm:text-6xl">&amp;</span> Diana
+        <h1 className="mt-3 font-script text-5xl xs:text-6xl sm:text-7xl leading-[0.9] text-gold-gradient break-words">
+          Byron <span className="font-serif-display italic text-4xl xs:text-5xl sm:text-6xl">&amp;</span> Diana
         </h1>
 
-        <div className="mx-auto mt-8 flex items-center gap-3">
-          <span className="h-px w-12 bg-gold/50" />
-          <span className="font-caps text-[0.6rem] text-ink/60">Request the honour of your presence</span>
-          <span className="h-px w-12 bg-gold/50" />
+        <div className="mx-auto mt-6 flex items-center gap-2 sm:gap-3">
+          <span className="h-px w-6 sm:w-12 bg-gold/50" />
+          <span className="font-caps text-[0.5rem] sm:text-[0.6rem] text-ink/60">Request the honour of your presence</span>
+          <span className="h-px w-6 sm:w-12 bg-gold/50" />
         </div>
 
-        <p className="mt-4 font-serif-display text-base italic text-ink/70">
+        <p className="mt-3 sm:mt-4 font-serif-display text-sm sm:text-base italic text-ink/70">
           as they exchange vows
         </p>
 
-        <div className="mt-10 grid grid-cols-3 items-center gap-4 text-center">
+        <div className="mt-8 grid grid-cols-3 items-center gap-2 sm:gap-4 text-center">
           <div>
-            <p className="font-caps text-[0.6rem] text-ink/60">Day</p>
-            <p className="mt-2 font-serif-display text-3xl">III</p>
+            <p className="font-caps text-[0.55rem] sm:text-[0.6rem] text-ink/60">Day</p>
+            <p className="mt-2 font-serif-display text-2xl sm:text-3xl">III</p>
           </div>
           <div className="border-x border-gold/30">
-            <p className="font-caps text-[0.6rem] text-ink/60">Month</p>
-            <p className="mt-2 font-script text-3xl text-gold-deep">July</p>
+            <p className="font-caps text-[0.55rem] sm:text-[0.6rem] text-ink/60">Month</p>
+            <p className="mt-2 font-script text-2xl sm:text-3xl text-gold-deep">July</p>
           </div>
           <div>
-            <p className="font-caps text-[0.6rem] text-ink/60">Year</p>
-            <p className="mt-2 font-serif-display text-3xl">MMXXVI</p>
+            <p className="font-caps text-[0.55rem] sm:text-[0.6rem] text-ink/60">Year</p>
+            <p className="mt-2 font-serif-display text-2xl sm:text-3xl">MMXXVI</p>
           </div>
         </div>
 
-        <p className="mt-8 font-caps text-[0.65rem] text-ink/70">Twelve O'Clock · Noon</p>
+        <p className="mt-7 font-caps text-[0.6rem] sm:text-[0.65rem] text-ink/70">Twelve O'Clock · Noon</p>
 
         <p className="mt-2 font-serif-display text-sm text-ink/80">
           Harris County Justice of the Peace<br />
@@ -260,6 +260,7 @@ function Hero() {
           <span className="text-xs text-ink/60">7330 Spencer Hwy · Pasadena, TX 77505</span>
         </p>
       </div>
+
 
       <Countdown />
 
