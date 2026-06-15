@@ -125,9 +125,9 @@ function MuteToggle({ muted, onToggle }: { muted: boolean; onToggle: () => void 
 
 function EnvelopeStage({ phase, onOpen }: { phase: Phase; onOpen: () => void }) {
   return (
-    <section className="flex min-h-screen items-center justify-center px-6 py-16">
-      <div className="flex flex-col items-center gap-8">
-        <p className="font-caps text-[0.65rem] text-gold-deep/80">An Invitation · MMXXVI</p>
+    <section className="flex min-h-[100svh] items-center justify-center px-4 py-10 sm:px-6 sm:py-16">
+      <div className="flex flex-col items-center gap-6 sm:gap-8">
+        <p className="font-caps text-[0.6rem] sm:text-[0.65rem] text-gold-deep/80">An Invitation · MMXXVI</p>
 
         <button
           onClick={onOpen}
@@ -140,7 +140,7 @@ function EnvelopeStage({ phase, onOpen }: { phase: Phase; onOpen: () => void }) 
           </div>
         </button>
 
-        <p className="font-caps text-xs text-ink/70">
+        <p className="font-caps text-[0.65rem] sm:text-xs text-ink/70">
           {phase === "envelope" ? "Tap to Open" : "Opening…"}
         </p>
       </div>
@@ -148,12 +148,13 @@ function EnvelopeStage({ phase, onOpen }: { phase: Phase; onOpen: () => void }) 
   );
 }
 
+
 function Envelope({ phase }: { phase: Phase }) {
   const opening = phase === "opening";
   return (
     <div className="relative" style={{ perspective: "1200px" }}>
       <div
-        className="relative h-[340px] w-[280px] sm:h-[400px] sm:w-[340px] shadow-vintage"
+        className="relative h-[320px] w-[260px] sm:h-[400px] sm:w-[340px] shadow-vintage"
         style={{
           background: "linear-gradient(160deg, oklch(0.42 0.09 155), oklch(0.30 0.07 155))",
           borderRadius: "2px",
@@ -197,7 +198,7 @@ function Envelope({ phase }: { phase: Phase }) {
         <img
           src={waxSeal}
           alt="Champagne blush wax seal with B and D monogram"
-          className={`pointer-events-none absolute left-1/2 top-[42%] z-20 h-32 w-32 sm:h-40 sm:w-40 -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_8px_16px_rgba(80,40,30,0.35)] ${opening ? "animate-seal-crack" : "animate-shimmer"}`}
+          className={`pointer-events-none absolute left-1/2 top-[42%] z-20 h-28 w-28 sm:h-40 sm:w-40 -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_8px_16px_rgba(80,40,30,0.35)] ${opening ? "animate-seal-crack" : "animate-shimmer"}`}
         />
       </div>
     </div>
@@ -216,42 +217,42 @@ function InvitationContent() {
 
 function Hero() {
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center px-6 py-20 text-center">
-      <div className="hairline mx-auto w-full max-w-2xl bg-ivory/70 px-6 py-14 sm:px-12 sm:py-20 shadow-vintage backdrop-blur-sm">
-        <img src={monogram} alt="B & D monogram" className="mx-auto h-20 w-auto sm:h-28" />
+    <section className="relative flex min-h-[100svh] flex-col items-center justify-center px-4 py-14 sm:px-6 sm:py-20 text-center">
+      <div className="hairline mx-auto w-full max-w-2xl bg-ivory/70 px-5 py-10 sm:px-12 sm:py-20 shadow-vintage backdrop-blur-sm">
+        <img src={monogram} alt="B & D monogram" className="mx-auto h-16 w-auto sm:h-28" />
 
-        <p className="mt-8 font-caps text-[0.7rem] text-ink/70">Together with their families</p>
+        <p className="mt-6 font-caps text-[0.6rem] sm:text-[0.7rem] text-ink/70">Together with their families</p>
 
-        <h1 className="mt-4 font-script text-6xl sm:text-7xl leading-[0.9] text-gold-gradient">
-          Byron <span className="font-serif-display italic text-5xl sm:text-6xl">&amp;</span> Diana
+        <h1 className="mt-3 font-script text-[3.25rem] sm:text-7xl leading-[0.9] text-gold-gradient break-words">
+          Byron <span className="font-serif-display italic text-[2.5rem] sm:text-6xl">&amp;</span> Diana
         </h1>
 
-        <div className="mx-auto mt-8 flex items-center gap-3">
-          <span className="h-px w-12 bg-gold/50" />
-          <span className="font-caps text-[0.6rem] text-ink/60">Request the honour of your presence</span>
-          <span className="h-px w-12 bg-gold/50" />
+        <div className="mx-auto mt-6 flex items-center gap-2 sm:gap-3">
+          <span className="h-px w-6 sm:w-12 bg-gold/50" />
+          <span className="font-caps text-[0.5rem] sm:text-[0.6rem] text-ink/60">Request the honour of your presence</span>
+          <span className="h-px w-6 sm:w-12 bg-gold/50" />
         </div>
 
-        <p className="mt-4 font-serif-display text-base italic text-ink/70">
+        <p className="mt-3 sm:mt-4 font-serif-display text-sm sm:text-base italic text-ink/70">
           as they exchange vows
         </p>
 
-        <div className="mt-10 grid grid-cols-3 items-center gap-4 text-center">
+        <div className="mt-8 grid grid-cols-3 items-center gap-2 sm:gap-4 text-center">
           <div>
-            <p className="font-caps text-[0.6rem] text-ink/60">Day</p>
-            <p className="mt-2 font-serif-display text-3xl">III</p>
+            <p className="font-caps text-[0.55rem] sm:text-[0.6rem] text-ink/60">Day</p>
+            <p className="mt-2 font-serif-display text-2xl sm:text-3xl">III</p>
           </div>
           <div className="border-x border-gold/30">
-            <p className="font-caps text-[0.6rem] text-ink/60">Month</p>
-            <p className="mt-2 font-script text-3xl text-gold-deep">July</p>
+            <p className="font-caps text-[0.55rem] sm:text-[0.6rem] text-ink/60">Month</p>
+            <p className="mt-2 font-script text-2xl sm:text-3xl text-gold-deep">July</p>
           </div>
           <div>
-            <p className="font-caps text-[0.6rem] text-ink/60">Year</p>
-            <p className="mt-2 font-serif-display text-3xl">MMXXVI</p>
+            <p className="font-caps text-[0.55rem] sm:text-[0.6rem] text-ink/60">Year</p>
+            <p className="mt-2 font-serif-display text-2xl sm:text-3xl">MMXXVI</p>
           </div>
         </div>
 
-        <p className="mt-8 font-caps text-[0.65rem] text-ink/70">Twelve O'Clock · Noon</p>
+        <p className="mt-7 font-caps text-[0.6rem] sm:text-[0.65rem] text-ink/70">Twelve O'Clock · Noon</p>
 
         <p className="mt-2 font-serif-display text-sm text-ink/80">
           Harris County Justice of the Peace<br />
@@ -259,6 +260,7 @@ function Hero() {
           <span className="text-xs text-ink/60">7330 Spencer Hwy · Pasadena, TX 77505</span>
         </p>
       </div>
+
 
       <Countdown />
 
@@ -295,11 +297,11 @@ function Countdown() {
   );
 
   return (
-    <div className="mt-10 flex items-center gap-6 sm:gap-10">
+    <div className="mt-8 flex items-center gap-4 sm:gap-10">
       <Cell v={days} label="Days" />
-      <span className="h-8 w-px bg-gold/40" />
+      <span className="h-7 w-px bg-gold/40" />
       <Cell v={hours} label="Hours" />
-      <span className="h-8 w-px bg-gold/40" />
+      <span className="h-7 w-px bg-gold/40" />
       <Cell v={minutes} label="Minutes" />
     </div>
   );
@@ -307,7 +309,7 @@ function Countdown() {
 
 function DetailsSections() {
   return (
-    <div id="details" className="mx-auto max-w-2xl px-6 pb-24">
+    <div id="details" className="mx-auto max-w-2xl px-4 sm:px-6 pb-20 sm:pb-24">
       <LocationBlock />
       <TimelineBlock />
       <PaletteBlock />
@@ -319,9 +321,9 @@ function DetailsSections() {
 
 function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
-    <div className="mt-20 mb-8 text-center">
+    <div className="mt-16 sm:mt-20 mb-6 sm:mb-8 text-center">
       <p className="font-caps text-[0.6rem] text-gold-deep/80">{eyebrow}</p>
-      <h2 className="mt-3 font-script text-4xl text-ink">{title}</h2>
+      <h2 className="mt-3 font-script text-3xl sm:text-4xl text-ink">{title}</h2>
       <div className="mx-auto mt-3 h-px w-16 bg-gold/50" />
     </div>
   );
@@ -338,7 +340,7 @@ function LocationBlock() {
           loading="lazy"
           className="aspect-[4/3] w-full object-cover"
         />
-        <div className="p-6 text-center">
+        <div className="p-5 sm:p-6 text-center">
           <p className="font-serif-display text-base text-ink">
             Harris County Justice of the Peace
           </p>
@@ -348,7 +350,7 @@ function LocationBlock() {
             href={`https://www.google.com/maps/search/?api=1&query=${VENUE_QUERY}`}
             target="_blank"
             rel="noreferrer"
-            className="mt-5 inline-block border border-gold-deep/70 px-6 py-2 font-caps text-[0.65rem] text-gold-deep transition hover:bg-gold-deep hover:text-ivory"
+            className="mt-5 inline-block border border-gold-deep/70 px-6 py-2.5 font-caps text-[0.65rem] text-gold-deep transition hover:bg-gold-deep hover:text-ivory"
           >
             View on Map
           </a>
@@ -365,127 +367,31 @@ function TimelineBlock() {
   const items = [
     { time: "12:00 PM", title: "Ceremony", note: "Exchange of vows" },
     { time: "12:45 PM", title: "Portraits", note: "Family photos on the courthouse steps" },
-    { time: "1:15 PM", title: "Mingle & Gather", note: "A quiet hour to greet family, share gifts, and linger together" },
+    { time: "1:15 PM", title: "Mingle & Gather", note: "Greet family, share gifts, and linger together" },
   ];
-
-  // Spiral coordinates (logarithmic rose) — petals out from the centre
-  const cx = 200;
-  const cy = 200;
-  // Build a smooth spiral SVG path
-  const spiralPath = useMemo(() => {
-    const points: string[] = [];
-    const turns = 2.6;
-    const steps = 220;
-    const a = 6;
-    const b = 16;
-    for (let i = 0; i <= steps; i++) {
-      const t = (i / steps) * turns * Math.PI * 2;
-      const r = a + b * t * 0.32;
-      const x = cx + r * Math.cos(t);
-      const y = cy + r * Math.sin(t);
-      points.push(`${i === 0 ? "M" : "L"} ${x.toFixed(2)} ${y.toFixed(2)}`);
-    }
-    return points.join(" ");
-  }, []);
-
-  // Place items along the outer half of the spiral
-  const markers = items.map((_, i) => {
-    const t = (0.55 + i * 0.45) * Math.PI * 2; // spread along outer turns
-    const r = 6 + 16 * t * 0.32;
-    return {
-      x: cx + r * Math.cos(t),
-      y: cy + r * Math.sin(t),
-    };
-  });
-
   return (
     <section>
       <SectionTitle eyebrow="Order of the Day" title="Schedule" />
-      <div className="hairline relative bg-ivory/70 p-6 sm:p-10 shadow-vintage">
-        <div className="relative mx-auto aspect-square w-full max-w-md">
-          <svg viewBox="0 0 400 400" className="absolute inset-0 h-full w-full">
-            <defs>
-              <linearGradient id="rose-stroke" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="oklch(0.78 0.12 85)" />
-                <stop offset="50%" stopColor="oklch(0.55 0.11 70)" />
-                <stop offset="100%" stopColor="oklch(0.78 0.12 85)" />
-              </linearGradient>
-            </defs>
-            {/* Decorative outer rose petals */}
-            <g
-              fill="none"
-              stroke="oklch(0.72 0.12 80 / 0.25)"
-              strokeWidth="1"
-            >
-              {Array.from({ length: 8 }).map((_, i) => {
-                const angle = (i / 8) * Math.PI * 2;
-                const x1 = cx + Math.cos(angle) * 30;
-                const y1 = cy + Math.sin(angle) * 30;
-                const x2 = cx + Math.cos(angle) * 175;
-                const y2 = cy + Math.sin(angle) * 175;
-                const cxp = cx + Math.cos(angle + 0.4) * 130;
-                const cyp = cy + Math.sin(angle + 0.4) * 130;
-                return (
-                  <path
-                    key={i}
-                    d={`M ${x1} ${y1} Q ${cxp} ${cyp} ${x2} ${y2}`}
-                  />
-                );
-              })}
-            </g>
-            {/* The spiral path */}
-            <path
-              d={spiralPath}
-              fill="none"
-              stroke="url(#rose-stroke)"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-            {/* Centre rose bud */}
-            <circle cx={cx} cy={cy} r="6" fill="oklch(0.55 0.11 70)" />
-            <circle cx={cx} cy={cy} r="11" fill="none" stroke="oklch(0.72 0.12 80 / 0.6)" />
-            {/* Marker dots */}
-            {markers.map((m, i) => (
-              <g key={i}>
-                <circle cx={m.x} cy={m.y} r="8" fill="oklch(0.975 0.012 85)" stroke="oklch(0.55 0.11 70)" strokeWidth="1.2" />
-                <circle cx={m.x} cy={m.y} r="3" fill="oklch(0.55 0.11 70)" />
-              </g>
-            ))}
-          </svg>
-
-          {/* Labels positioned over markers */}
-          {markers.map((m, i) => {
-            const it = items[i];
-            const leftPct = (m.x / 400) * 100;
-            const topPct = (m.y / 400) * 100;
-            // Decide which side the label sits based on angle from centre
-            const dx = m.x - cx;
-            const alignRight = dx < 0;
-            return (
-              <div
-                key={i}
-                className="absolute w-[44%] sm:w-[40%]"
-                style={{
-                  left: `${leftPct}%`,
-                  top: `${topPct}%`,
-                  transform: `translate(${alignRight ? "-104%" : "4%"}, -50%)`,
-                  textAlign: alignRight ? "right" : "left",
-                }}
-              >
-                <p className="font-caps text-[0.55rem] text-gold-deep">{it.time}</p>
-                <p className="mt-0.5 font-serif-display text-base leading-tight text-ink">{it.title}</p>
-                <p className="mt-0.5 text-[0.7rem] italic leading-snug text-ink/60">{it.note}</p>
-              </div>
-            );
-          })}
-        </div>
-        <p className="mt-6 text-center font-serif-display text-xs italic text-ink/60">
-          No formal reception — simply linger with us awhile.
-        </p>
-      </div>
+      <ol className="relative mx-auto max-w-md">
+        <span className="absolute left-[7px] top-2 bottom-2 w-px bg-gold/40" />
+        {items.map((it) => (
+          <li key={it.title} className="relative grid grid-cols-[auto_minmax(0,1fr)] items-start gap-4 sm:gap-5 py-4 pl-1">
+            <span className="mt-2 h-3.5 w-3.5 shrink-0 rounded-full border border-gold-deep bg-ivory shadow-[0_0_0_3px_oklch(0.975_0.012_85)]" />
+            <div className="min-w-0">
+              <p className="font-caps text-[0.6rem] text-gold-deep">{it.time}</p>
+              <p className="mt-1 font-serif-display text-lg sm:text-xl text-ink">{it.title}</p>
+              <p className="text-sm italic text-ink/60">{it.note}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p className="mt-6 text-center font-serif-display text-xs italic text-ink/60">
+        No formal reception — simply linger with us awhile.
+      </p>
     </section>
   );
 }
+
 
 function PaletteBlock() {
   const colors = [
@@ -497,22 +403,22 @@ function PaletteBlock() {
   return (
     <section>
       <SectionTitle eyebrow="Attire" title="Dress in Our Palette" />
-      <div className="hairline bg-ivory/70 p-8 text-center shadow-vintage">
-        <p className="font-serif-display text-base italic text-ink/80">
+      <div className="hairline bg-ivory/70 p-6 sm:p-8 text-center shadow-vintage">
+        <p className="font-serif-display text-sm sm:text-base italic text-ink/80">
           We'd love for our guests to dress in shades from our wedding palette.
         </p>
-        <div className="mt-8 grid grid-cols-4 gap-4 sm:gap-6">
+        <div className="mt-7 grid grid-cols-4 gap-3 sm:gap-6">
           {colors.map((c) => (
-            <div key={c.name} className="flex flex-col items-center gap-3">
+            <div key={c.name} className="flex flex-col items-center gap-2 sm:gap-3">
               <span
-                className="h-16 w-16 rounded-full border border-gold/30 shadow-[inset_0_2px_6px_rgba(255,255,255,0.5),0_4px_12px_rgba(0,0,0,0.08)] sm:h-20 sm:w-20"
+                className="h-12 w-12 sm:h-20 sm:w-20 rounded-full border border-gold/30 shadow-[inset_0_2px_6px_rgba(255,255,255,0.5),0_4px_12px_rgba(0,0,0,0.08)]"
                 style={{ background: c.css }}
               />
-              <span className="font-caps text-[0.55rem] text-ink/70">{c.name}</span>
+              <span className="font-caps text-[0.5rem] sm:text-[0.55rem] text-ink/70 text-center leading-tight">{c.name}</span>
             </div>
           ))}
         </div>
-        <p className="mt-8 font-caps text-[0.6rem] text-ink/60">Kindly avoid white or ivory</p>
+        <p className="mt-7 font-caps text-[0.55rem] sm:text-[0.6rem] text-ink/60">Kindly avoid white or ivory</p>
       </div>
     </section>
   );
@@ -532,7 +438,7 @@ function RsvpBlock() {
         </p>
         <button
           onClick={() => setOpen(true)}
-          className="mt-6 inline-block border border-gold-deep bg-gold-deep px-10 py-3 font-caps text-[0.65rem] text-ivory transition hover:bg-ink hover:border-ink"
+          className="mt-6 inline-block w-full sm:w-auto border border-gold-deep bg-gold-deep px-10 py-3 font-caps text-[0.65rem] text-ivory transition hover:bg-ink hover:border-ink"
         >
           Kindly Respond
         </button>
@@ -579,7 +485,7 @@ function RsvpDialog({ onClose }: { onClose: () => void }) {
       onClick={onClose}
     >
       <div
-        className="hairline w-full max-w-md bg-ivory p-8 shadow-vintage animate-fade-up"
+        className="hairline w-full max-w-md max-h-[92vh] overflow-y-auto bg-ivory p-6 sm:p-8 shadow-vintage animate-fade-up"
         onClick={(e) => e.stopPropagation()}
       >
         <p className="text-center font-caps text-[0.6rem] text-gold-deep">RSVP</p>
@@ -714,11 +620,11 @@ function CalendarBlock() {
 
 function Footer() {
   return (
-    <footer className="border-t border-gold/20 px-6 py-16 text-center">
+    <footer className="border-t border-gold/20 px-4 sm:px-6 py-12 sm:py-16 text-center">
       <img src={monogram} alt="" className="mx-auto h-10 w-auto opacity-70" />
       <p className="mt-6 font-script text-3xl text-gold-gradient">Byron &amp; Diana</p>
       <p className="mt-3 font-caps text-[0.55rem] text-ink/50">III · VII · MMXXVI</p>
-      <p className="mt-8 font-serif-display text-xs italic text-ink/50">
+      <p className="mt-6 sm:mt-8 font-serif-display text-xs italic text-ink/50">
         Your presence is the only gift we require.
       </p>
     </footer>
