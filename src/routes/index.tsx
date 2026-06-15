@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import waxSeal from "@/assets/wax-seal.png";
 import monogram from "@/assets/monogram.png";
@@ -6,6 +6,7 @@ import courthouse from "@/assets/courthouse.jpg";
 import acousticAsset from "@/assets/acoustic.mp3.asset.json";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrevjyyj";
+const TARGET_VOLUME = 0.32;
 
 export const Route = createFileRoute("/")({
   head: () => ({
