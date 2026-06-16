@@ -424,7 +424,6 @@ function PaletteBlock() {
 
 
 function RsvpBlock() {
-  const [open, setOpen] = useState(false);
   return (
     <section id="rsvp">
       <SectionTitle eyebrow="Répondez s'il vous plaît" title="Kindly Respond" />
@@ -435,147 +434,17 @@ function RsvpBlock() {
         <p className="mt-2 font-caps text-[0.6rem] text-gold-deep">
           Kindly respond by June 30th
         </p>
-        <button
-          onClick={() => {
-            document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth", block: "start" });
-            setOpen(true);
-          }}
+        <Link
+          to="/rsvp"
           className="mt-6 inline-block w-full sm:w-auto border border-gold-deep bg-gold-deep px-10 py-3 font-caps text-[0.65rem] text-ivory transition hover:bg-ink hover:border-ink"
         >
           Kindly Respond
-        </button>
+        </Link>
       </div>
-      {open && <RsvpDialog onClose={() => setOpen(false)} />}
     </section>
   );
 }
 
-function RsvpDialog({ onClose }: { onClose: () => void }) {
-  const navigate = useNavigate();
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [form, setForm] = useState({ name: "", attending: "yes", guests: 1, message: "" });
-  const dialogRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    dialogRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
-  }, []);
-
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setError(null);
-    try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          name: form.name,
-          attending: form.attending === "yes" ? "Joyfully Accepts" : "Regretfully Declines",
-          guests: form.attending === "yes" ? form.guests : 0,
-          message: form.message,
-          _subject: `RSVP from ${form.name} — Byron & Diana`,
-        }),
-      });
-      if (!res.ok) throw new Error("Submission failed");
-      navigate({ to: "/thank-you" });
-    } catch {
-      setError("Something went wrong. Please try again.");
-      setSubmitting(false);
-    }
-  };
-
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-ink/40 px-4 py-6 backdrop-blur-sm"
-      onClick={onClose}
-    >
-      <div
-        ref={dialogRef}
-        className="hairline my-auto w-full max-w-md overflow-y-auto bg-ivory p-6 sm:p-8 shadow-vintage animate-fade-up"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <p className="text-center font-caps text-[0.6rem] text-gold-deep">RSVP</p>
-        <h3 className="mt-2 text-center font-script text-3xl text-ink">Your Reply</h3>
-        <form onSubmit={submit} className="mt-6 space-y-5">
-          <Field label="Full Name">
-            <input
-              required
-              maxLength={100}
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full border-b border-gold/40 bg-transparent py-2 font-serif-display text-base text-ink outline-none focus:border-gold-deep"
-            />
-          </Field>
-          <Field label="Will you attend?">
-            <div className="flex gap-3">
-              {["yes", "no"].map((v) => (
-                <button
-                  key={v}
-                  type="button"
-                  onClick={() => setForm({ ...form, attending: v })}
-                  className={`flex-1 border py-2 font-caps text-[0.6rem] transition ${
-                    form.attending === v
-                      ? "border-gold-deep bg-gold-deep text-ivory"
-                      : "border-gold/40 text-ink/70 hover:border-gold-deep"
-                  }`}
-                >
-                  {v === "yes" ? "Joyfully Accepts" : "Regretfully Declines"}
-                </button>
-              ))}
-            </div>
-          </Field>
-          {form.attending === "yes" && (
-            <Field label="Number of Guests">
-              <input
-                type="number"
-                min={1}
-                max={6}
-                value={form.guests}
-                onChange={(e) => setForm({ ...form, guests: Number(e.target.value) })}
-                className="w-24 border-b border-gold/40 bg-transparent py-2 font-serif-display text-base text-ink outline-none focus:border-gold-deep"
-              />
-            </Field>
-          )}
-          <Field label="A Note for the Couple (optional)">
-            <textarea
-              rows={3}
-              maxLength={500}
-              value={form.message}
-              onChange={(e) => setForm({ ...form, message: e.target.value })}
-              className="w-full resize-none border-b border-gold/40 bg-transparent py-2 font-serif-display text-base text-ink outline-none focus:border-gold-deep"
-            />
-          </Field>
-          {error && (
-            <p className="text-center font-caps text-[0.6rem] text-red-700">{error}</p>
-          )}
-          <div className="flex gap-3 pt-4">
-            <button
-              type="button"
-              onClick={onClose}
-              disabled={submitting}
-              className="flex-1 border border-gold/40 py-3 font-caps text-[0.6rem] text-ink/70 hover:border-gold-deep disabled:opacity-50"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={submitting || !form.name.trim()}
-              className="flex-1 border border-gold-deep bg-gold-deep py-3 font-caps text-[0.6rem] text-ivory hover:bg-ink hover:border-ink disabled:opacity-60"
-            >
-              {submitting ? "Sending…" : "Send Reply"}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-}
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
