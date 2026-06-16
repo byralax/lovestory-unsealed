@@ -426,7 +426,7 @@ function PaletteBlock() {
 function RsvpBlock() {
   const [open, setOpen] = useState(false);
   return (
-    <section>
+    <section id="rsvp">
       <SectionTitle eyebrow="Répondez s'il vous plaît" title="Kindly Respond" />
       <div className="text-center">
         <p className="font-serif-display text-base text-ink/80">
@@ -436,7 +436,10 @@ function RsvpBlock() {
           Kindly respond by June 30th
         </p>
         <button
-          onClick={() => setOpen(true)}
+          onClick={() => {
+            document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth", block: "start" });
+            setOpen(true);
+          }}
           className="mt-6 inline-block w-full sm:w-auto border border-gold-deep bg-gold-deep px-10 py-3 font-caps text-[0.65rem] text-ivory transition hover:bg-ink hover:border-ink"
         >
           Kindly Respond
