@@ -455,6 +455,16 @@ function RsvpDialog({ onClose }: { onClose: () => void }) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", attending: "yes", guests: 1, message: "" });
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    dialogRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -480,14 +490,14 @@ function RsvpDialog({ onClose }: { onClose: () => void }) {
     }
   };
 
-
   return (
     <div
-      className="fixed inset-0 z-50 grid place-items-center bg-ink/40 px-4 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-ink/40 px-4 py-6 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
-        className="hairline w-full max-w-md max-h-[92vh] overflow-y-auto bg-ivory p-6 sm:p-8 shadow-vintage animate-fade-up"
+        ref={dialogRef}
+        className="hairline my-auto w-full max-w-md overflow-y-auto bg-ivory p-6 sm:p-8 shadow-vintage animate-fade-up"
         onClick={(e) => e.stopPropagation()}
       >
         <p className="text-center font-caps text-[0.6rem] text-gold-deep">RSVP</p>
@@ -562,7 +572,6 @@ function RsvpDialog({ onClose }: { onClose: () => void }) {
             </button>
           </div>
         </form>
-
       </div>
     </div>
   );
