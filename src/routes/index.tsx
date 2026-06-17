@@ -215,7 +215,7 @@ function CouplePhoto() {
             src={couplePhoto.url}
             alt="Byron and Diana"
             className="h-full w-full object-cover"
-            style={{ clipPath: "polygon(50% 15%, 55% 8%, 62% 5%, 70% 8%, 75% 15%, 80% 25%, 78% 38%, 70% 50%, 60% 62%, 50% 75%, 40% 62%, 30% 50%, 22% 38%, 20% 25%, 25% 15%, 30% 8%, 38% 5%, 45% 8%)" }}
+            style={{ clipPath: "path('M100,170 C100,170 10,110 10,60 A30,30,0,0,1,70,60 A30,30,0,0,1,100,60 A30,30,0,0,1,130,60 A30,30,0,0,1,190,60 C190,110,100,170,100,170 Z')" }}
           />
           {/* Gold heart border overlay */}
           <svg
