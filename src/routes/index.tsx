@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import waxSeal from "@/assets/wax-seal.png";
 import monogram from "@/assets/monogram.png";
 import courthouse from "@/assets/courthouse.jpg";
+import couplePhoto from "@/assets/byron-diana.jpg.asset.json";
 import acousticAsset from "@/assets/acoustic.mp3.asset.json";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrevjyyj";
@@ -204,11 +205,51 @@ function Envelope({ phase }: { phase: Phase }) {
   );
 }
 
+function CouplePhoto() {
+  return (
+    <section className="flex flex-col items-center justify-center px-4 py-14 sm:px-6 sm:py-20 text-center">
+      <div className="hairline paper-card mx-auto w-full max-w-md px-6 py-10 sm:px-10 sm:py-14 shadow-vintage">
+        <p className="font-caps text-[0.6rem] sm:text-[0.7rem] text-gold-deep/80">The Couple</p>
+        <div className="relative mx-auto mt-6 h-64 w-64 sm:h-80 sm:w-80">
+          <img
+            src={couplePhoto.url}
+            alt="Byron and Diana"
+            className="h-full w-full object-cover"
+            style={{ clipPath: "path('M100,180 C100,180 5,115 5,55 A35,35,0,0,1,75,55 A35,35,0,0,1,100,55 A35,35,0,0,1,125,55 A35,35,0,0,1,195,55 C195,115,100,180,100,180 Z')" }}
+          />
+          {/* Gold heart border overlay */}
+          <svg
+            viewBox="0 0 200 200"
+            className="pointer-events-none absolute inset-0 h-full w-full"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="goldStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#BE9D6A" />
+                <stop offset="50%" stopColor="#FFD700" />
+                <stop offset="100%" stopColor="#BE9D6A" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M100,180 C100,180 5,115 5,55 A35,35,0,0,1,75,55 A35,35,0,0,1,100,55 A35,35,0,0,1,125,55 A35,35,0,0,1,195,55 C195,115,100,180,100,180 Z"
+              fill="none"
+              stroke="url(#goldStroke)"
+              strokeWidth="3"
+            />
+          </svg>
+        </div>
+        <p className="mt-6 font-script text-2xl sm:text-3xl text-gold-gradient">Byron &amp; Diana</p>
+        <p className="mt-2 font-serif-display text-sm italic text-ink/60">Forever starts here</p>
+      </div>
+    </section>
+  );
+}
 
 function InvitationContent() {
   return (
     <div className="animate-fade-up">
       <Hero />
+      <CouplePhoto />
       <DetailsSections />
       <Footer />
     </div>
