@@ -211,30 +211,33 @@ function CouplePhoto() {
       <div className="hairline paper-card mx-auto w-full max-w-md px-6 py-10 sm:px-10 sm:py-14 shadow-vintage">
         <p className="font-caps text-[0.6rem] sm:text-[0.7rem] text-gold-deep/80">The Couple</p>
         <div className="relative mx-auto mt-6 h-64 w-64 sm:h-80 sm:w-80">
+          {/* Hidden SVG with clipPath definition */}
+          <svg width="0" height="0" className="absolute">
+            <defs>
+              <clipPath id="heart-clip" clipPathUnits="objectBoundingBox">
+                <path d="M0.5,0.88 C0.5,0.88 0.02,0.58 0.02,0.3 A0.18,0.18,0,0,1,0.38,0.3 A0.18,0.18,0,0,1,0.5,0.3 A0.18,0.18,0,0,1,0.62,0.3 A0.18,0.18,0,0,1,0.98,0.3 C0.98,0.58,0.5,0.88,0.5,0.88 Z" />
+              </clipPath>
+            </defs>
+          </svg>
+          <img
+            src={couplePhoto.url}
+            alt="Byron and Diana"
+            className="h-full w-full object-cover"
+            style={{ clipPath: "url(#heart-clip)" }}
+          />
+          {/* Gold heart border overlay */}
           <svg
             viewBox="0 0 200 200"
-            className="h-full w-full drop-shadow-[0_6px_20px_rgba(190,157,106,0.35)]"
+            className="pointer-events-none absolute inset-0 h-full w-full"
             xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
-              <clipPath id="heart-clip">
-                <path d="M100,170 C100,170 10,110 10,60 A30,30,0,0,1,70,60 A30,30,0,0,1,100,60 A30,30,0,0,1,130,60 A30,30,0,0,1,190,60 C190,110,100,170,100,170 Z" />
-              </clipPath>
               <linearGradient id="goldStroke" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#BE9D6A" />
                 <stop offset="50%" stopColor="#FFD700" />
                 <stop offset="100%" stopColor="#BE9D6A" />
               </linearGradient>
             </defs>
-            <image
-              href={couplePhoto.url}
-              x="0"
-              y="0"
-              width="200"
-              height="200"
-              clipPath="url(#heart-clip)"
-              preserveAspectRatio="xMidYMid slice"
-            />
             <path
               d="M100,170 C100,170 10,110 10,60 A30,30,0,0,1,70,60 A30,30,0,0,1,100,60 A30,30,0,0,1,130,60 A30,30,0,0,1,190,60 C190,110,100,170,100,170 Z"
               fill="none"
