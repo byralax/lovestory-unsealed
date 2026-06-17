@@ -210,6 +210,7 @@ function InvitationContent() {
   return (
     <div className="animate-fade-up">
       <Hero />
+      <CouplePhoto />
       <DetailsSections />
       <Footer />
     </div>
