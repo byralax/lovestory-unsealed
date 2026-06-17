@@ -211,19 +211,11 @@ function CouplePhoto() {
       <div className="hairline paper-card mx-auto w-full max-w-md px-6 py-10 sm:px-10 sm:py-14 shadow-vintage">
         <p className="font-caps text-[0.6rem] sm:text-[0.7rem] text-gold-deep/80">The Couple</p>
         <div className="relative mx-auto mt-6 h-64 w-64 sm:h-80 sm:w-80">
-          {/* Hidden SVG with clipPath definition */}
-          <svg width="0" height="0" className="absolute">
-            <defs>
-              <clipPath id="heart-clip">
-                <path d="M100,170 C100,170 10,110 10,60 A30,30,0,0,1,70,60 A30,30,0,0,1,100,60 A30,30,0,0,1,130,60 A30,30,0,0,1,190,60 C190,110,100,170,100,170 Z" />
-              </clipPath>
-            </defs>
-          </svg>
           <img
             src={couplePhoto.url}
             alt="Byron and Diana"
             className="h-full w-full object-cover"
-            style={{ clipPath: "url(#heart-clip)" }}
+            style={{ clipPath: "polygon(50% 15%, 55% 8%, 62% 5%, 70% 8%, 75% 15%, 80% 25%, 78% 38%, 70% 50%, 60% 62%, 50% 75%, 40% 62%, 30% 50%, 22% 38%, 20% 25%, 25% 15%, 30% 8%, 38% 5%, 45% 8%)" }}
           />
           {/* Gold heart border overlay */}
           <svg
