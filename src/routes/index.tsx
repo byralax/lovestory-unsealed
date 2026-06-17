@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import waxSeal from "@/assets/wax-seal.png";
 import monogram from "@/assets/monogram.png";
 import courthouse from "@/assets/courthouse.jpg";
+import couplePhoto from "@/assets/byron-diana.jpg.asset.json";
 import acousticAsset from "@/assets/acoustic.mp3.asset.json";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrevjyyj";
