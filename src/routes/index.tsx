@@ -88,7 +88,7 @@ function Invitation() {
     <main className="relative min-h-screen overflow-x-hidden">
       {/* Soft acoustic background music — replace src with your licensed track */}
       <audio ref={musicRef} loop preload="auto">
-        <source src={acousticAsset.url} type="audio/mpeg" />
+        <source src={acoustic} type="audio/mpeg" />
       </audio>
 
       <MuteToggle muted={muted} onToggle={toggleMute} />
@@ -226,7 +226,7 @@ function Hero() {
           <div className="hairline bg-ivory/70 p-2 shadow-vintage">
             <div className="overflow-hidden">
               <img
-                src={coupleAsset.url}
+                src={couple}
                 alt="Byron and Diana"
                 width={600}
                 height={800}
