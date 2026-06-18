@@ -1,10 +1,10 @@
-import coupleAsset from "@/assets/couple.jpg.asset.json";
+import couple from "@/assets/couple.jpg";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import waxSeal from "@/assets/wax-seal.png";
 import monogram from "@/assets/monogram.png";
 import courthouse from "@/assets/courthouse.jpg";
-import acousticAsset from "@/assets/acoustic.mp3.asset.json";
+import acoustic from "@/assets/acoustic.mp3";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrevjyyj";
 const TARGET_VOLUME = 0.32;
@@ -88,7 +88,7 @@ function Invitation() {
     <main className="relative min-h-screen overflow-x-hidden">
       {/* Soft acoustic background music — replace src with your licensed track */}
       <audio ref={musicRef} loop preload="auto">
-        <source src={acousticAsset.url} type="audio/mpeg" />
+        <source src={acoustic} type="audio/mpeg" />
       </audio>
 
       <MuteToggle muted={muted} onToggle={toggleMute} />
@@ -226,7 +226,7 @@ function Hero() {
           <div className="hairline bg-ivory/70 p-2 shadow-vintage">
             <div className="overflow-hidden">
               <img
-                src={coupleAsset.url}
+                src={couple}
                 alt="Byron and Diana"
                 width={600}
                 height={800}
