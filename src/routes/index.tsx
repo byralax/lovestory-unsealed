@@ -223,12 +223,18 @@ function Hero() {
       <img src={monogram} alt="B & D monogram" className="mx-auto h-16 w-auto sm:h-28" />
 
         <div className="mx-auto mt-6 w-full max-w-xs sm:max-w-sm">
-          <div className="overflow-hidden border-2 border-gold/40 shadow-vintage">
-            <img
-              src={coupleAsset.url}
-              alt="Byron and Diana"
-              className="aspect-[3/4] w-full object-cover"
-            />
+          <div className="hairline bg-ivory/70 p-2 shadow-vintage">
+            <div className="overflow-hidden">
+              <img
+                src={coupleAsset.url}
+                alt="Byron and Diana"
+                width={600}
+                height={800}
+                fetchPriority="high"
+                decoding="async"
+                className="aspect-[3/4] w-full object-cover"
+              />
+            </div>
           </div>
         </div>
 
