@@ -220,7 +220,17 @@ function Hero() {
   return (
     <section className="relative flex min-h-[100svh] flex-col items-center justify-center px-4 py-14 sm:px-6 sm:py-20 text-center">
       <div className="hairline paper-card mx-auto w-full max-w-2xl px-5 py-10 sm:px-12 sm:py-20 shadow-vintage">
-        <img src={monogram} alt="B & D monogram" className="mx-auto h-16 w-auto sm:h-28" />
+      <img src={monogram} alt="B & D monogram" className="mx-auto h-16 w-auto sm:h-28" />
+
+        <div className="mx-auto mt-6 w-full max-w-xs sm:max-w-sm">
+          <div className="overflow-hidden border-2 border-gold/40 shadow-vintage">
+            <img
+              src={coupleAsset.url}
+              alt="Byron and Diana"
+              className="aspect-[3/4] w-full object-cover"
+            />
+          </div>
+        </div>
 
         <p className="mt-6 font-caps text-[0.6rem] sm:text-[0.7rem] text-ink/70">Together with their families</p>
 
