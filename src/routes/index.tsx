@@ -1,3 +1,4 @@
+import coupleAsset from "@/assets/couple.jpg.asset.json";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import waxSeal from "@/assets/wax-seal.png";
