@@ -1,10 +1,10 @@
-import coupleAsset from "@/assets/couple.jpg.asset.json";
+import couple from "@/assets/couple.jpg";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import waxSeal from "@/assets/wax-seal.png";
 import monogram from "@/assets/monogram.png";
 import courthouse from "@/assets/courthouse.jpg";
-import acousticAsset from "@/assets/acoustic.mp3.asset.json";
+import acoustic from "@/assets/acoustic.mp3";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xrevjyyj";
 const TARGET_VOLUME = 0.32;
