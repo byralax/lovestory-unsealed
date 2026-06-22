@@ -407,36 +407,6 @@ function TimelineBlock() {
 }
 
 
-function PaletteBlock() {
-  const colors = [
-    { name: "Champagne Rose", css: "#F1DDCF" },
-    { name: "Gold", css: "#FFD700" },
-    { name: "Dark Brown", css: "#654321" },
-    { name: "Beige", css: "#BE9D6A" },
-  ];
-  return (
-    <section>
-      <SectionTitle eyebrow="Attire" title="A Suggested Palette" />
-      <div className="hairline paper-card p-6 sm:p-8 text-center shadow-vintage">
-        <p className="font-serif-display text-sm sm:text-base italic text-ink/80">
-          Wear whatever makes you feel comfortable — these shades are simply gentle suggestions.
-        </p>
-        <div className="mt-7 grid grid-cols-4 gap-3 sm:gap-6">
-          {colors.map((c) => (
-            <div key={c.name} className="flex flex-col items-center gap-2 sm:gap-3">
-              <span
-                className="h-12 w-12 sm:h-20 sm:w-20 rounded-full border border-gold/30 shadow-[inset_0_2px_6px_rgba(255,255,255,0.5),0_4px_12px_rgba(0,0,0,0.08)]"
-                style={{ background: c.css }}
-              />
-              <span className="font-caps text-[0.5rem] sm:text-[0.55rem] text-ink/70 text-center leading-tight">{c.name}</span>
-            </div>
-          ))}
-        </div>
-        <p className="mt-7 font-caps text-[0.55rem] sm:text-[0.6rem] text-ink/60">White and ivory are welcome too</p>
-      </div>
-    </section>
-  );
-}
 
 
 function RsvpBlock() {
