@@ -382,8 +382,8 @@ function LocationBlock() {
 function TimelineBlock() {
   const items = [
     { time: "12:00 PM", title: "Ceremony", note: "Exchange of vows" },
-    { time: "12:45 PM", title: "Portraits", note: "Family photos on the courthouse steps" },
-    { time: "1:15 PM", title: "Mingle & Gather", note: "Greet family, share gifts, and linger together" },
+    { time: "12:45 PM", title: "Portraits", note: "Family photos" },
+    { time: "1:00 PM", title: "Lunch, Mingle & Gather @ Grand Buffet", note: "8309 Spencer Hwy, Deer Park, TX 77536 — Greet family, share gifts, and linger together" },
   ];
   return (
     <section>
