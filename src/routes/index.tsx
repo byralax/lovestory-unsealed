@@ -329,7 +329,6 @@ function DetailsSections() {
     <div id="details" className="mx-auto max-w-2xl px-4 sm:px-6 pb-20 sm:pb-24">
       <LocationBlock />
       <TimelineBlock />
-      <PaletteBlock />
       <RsvpBlock />
       <CalendarBlock />
     </div>
